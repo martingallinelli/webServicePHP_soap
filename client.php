@@ -26,12 +26,6 @@ try {
 		//! ejecutar metodo ver curso por id
 		// soapCall(nombreMetodo, nombreMetodo=>parametro)
 		$response = $soap_client->__soapCall('obtenerCurso', ['obtenerCurso' => $id]);
-	} elseif ($_POST['metodo'] == 'actualizarCurso')
-	{
-
-	} elseif ($_POST['metodo'] == 'eliminarCurso')
-	{
-		
 	}
 
 	// analizar si hubo un error, sino analizar en que formato se muestra (xml - json), y mostrar
