@@ -32,7 +32,7 @@ try {
 	// analizar si hubo un error, sino analizar en que formato se muestra (xml - json), y mostrar
 	echo (isset($response['success']) 
 			? $resp = json_encode($response)  
-			// analizar formato de respuesta (XML - JSON)
+			// analizar formato
 			: (($_POST['formato'] == 'xml') 
 					? $resp = XML($response) 
 					: $resp = json_encode($response)));
