@@ -29,11 +29,13 @@ try {
 		$response = $soap_client->__soapCall('getCurso', ['getCurso' => $id]);
 	}
 
-	// analizar formato de respuesta (XML - JSON)
-	($_POST['formato'] == 'xml') ? $resp = XML($response) : $resp = json_encode($response);
-	
-	// mostrar resultado
-	echo $resp;
+	// analizar si hubo un error, sino analizar en que formato se muestra (xml - json), y mostrar
+	echo (isset($response['success']) 
+			? $resp = json_encode($response)  
+			// analizar formato de respuesta (XML - JSON)
+			: (($_POST['formato'] == 'xml') 
+					? $resp = XML($response) 
+					: $resp = json_encode($response)));
 
 //! control de errores
 } catch (Exception $e) {

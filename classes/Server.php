@@ -7,6 +7,17 @@ require_once './classes/errors/Answers.php';
 
 class Server
 {
+    // mensajes
+    private static $mensajes = [
+        '200' => 'Ok',
+        '201' => 'Curso guardado',
+        '400' => 'Datos enviados incompletos o con formato incorrecto',
+        '401' => 'Acceso no autorizado',
+        '404' => 'Curso no encontrado',
+        '405' => 'Método no permitido',
+        '500' => 'Error interno del servidor'
+    ];
+
     public function __construct() {}
 
     //! listar todos los cursos    
@@ -29,7 +40,7 @@ class Server
             $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } else {
             // error 500 (interno del servidor)
-            return Answers::error_500();
+            return Answers::mensaje('500', self::$mensajes['500']);
         }
 
         //! devolver cursos
@@ -45,8 +56,6 @@ class Server
      */
     public function getCurso($id) 
     {
-        // nuevo objeto respuesta
-        $respuestas = new Answers;
         //! conectar la bd
         $conn = Conection::conectar();
         //! consulta sql
@@ -58,13 +67,12 @@ class Server
         //! ejecutar consulta
         if ($stmt->execute()) {
             // traer el curso en un array asociativo
-            $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $curso = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            // devolver curso o 404 no encontrado
+            return $curso ? $curso : Answers::mensaje('404', self::$mensajes['404']);
         } else {
             // error 500 (interno del servidor)
-            return Answers::error_500();
+            return Answers::mensaje('500', self::$mensajes['500']);
         }
-
-        //! devolver curso
-        return $cursos;
     }
 }
