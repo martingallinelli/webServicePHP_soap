@@ -17,45 +17,43 @@
             </h1>
         </div>
 
-        <div class="mt-5 max-w-sm mx-auto">
-            <div class="md:grid md:grid-cols-1 mt-5 md:mt-0">
-                <form action="client.php" method="POST">
-                    <div class="shadow-md overflow-hidden sm:rounded-md">
-                        <div class="px-4 pt-5 pb-3 bg-white sm:px-6 sm:pb-5">
-                            <label class="block font-medium text-gray-700 uppercase italic text-center mb-3">Listar curso por código</label>
-                            <label for="id" class="block font-medium text-gray-700">Buscar curso: <small
-                                    class="italic">(Ingrese un código > 0)</small></label>
-                            <input type="number" name="id" id="id" min="1"
-                                class="mt-1 shadow-md border border-grey-700 rounded-md" required>
-                        </div>
+        <div class="mt-5 max-w-xl mx-auto">
+            <div class="md:grid md:grid-cols-2 gap-3 mt-5 md:mt-0">
+                <form action="client.php" method="POST" class="md:w-70 shadow-md sm:rounded-md">
+                    <div class="px-4 pt-5 pb-3 bg-white sm:px-6 sm:pb-5">
+                        <label class="block font-bold text-gray-700 uppercase italic text-center mb-3">Listar curso por código</label>
+                        <label for="id" class="block font-medium text-gray-700">Buscar curso: <small
+                                class="italic">(Ingrese un código > 0)</small></label>
+                        <input type="number" name="id" id="id" min="1"
+                            class="mt-1 shadow-md border border-grey-700 rounded-md" required>
+                    </div>
 
-                        <div class="px-4 pb-5 bg-white sm:px-6 text-gray-700">
-                            <label class="block font-medium">Formato respuesta:</label>
-                            <div class="grid grid-cols-2">
-                                <div class="flex items-center justify-center">
-                                    <input id="xml1" name="formato" type="radio" value="xml" required>
-                                    <label for="xml1" class="ml-2 block text-sm font-medium">XML</label>
-                                </div>
-                                <div class="flex items-center justify-center">
-                                    <input id="json1" name="formato" type="radio" value="json" required>
-                                    <label for="json1" class="ml-2 block text-sm font-medium">JSON</label>
-                                </div>
+                    <div class="px-4 pb-5 bg-white sm:px-6 text-gray-700">
+                        <label class="block font-medium">Formato respuesta:</label>
+                        <div class="grid grid-cols-2">
+                            <div class="flex items-center justify-center">
+                                <input id="xml1" name="formato" type="radio" value="xml" required>
+                                <label for="xml1" class="ml-2 block text-sm font-medium">XML</label>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <input id="json1" name="formato" type="radio" value="json" required>
+                                <label for="json1" class="ml-2 block text-sm font-medium">JSON</label>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="px-4 py-2">
-                            <button type="submit"
-                                class="py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700">Buscar</button>
-                            <button type="reset"
-                                class="py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-700">Limpiar</button>
-                        </div>
+                    <div class="px-4 py-2">
+                        <button type="submit"
+                            class="py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700">Buscar</button>
+                        <button type="reset"
+                            class="py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-700">Limpiar</button>
                     </div>
                 </form>
 
-                <form action="client.php" method="POST">
-                    <div class="shadow-md overflow-hidden sm:rounded-md mt-3">
-                        <div class="py-5 px-4 pb-5 bg-white sm:px-6 text-gray-700">
-                            <label class="block font-medium text-gray-700 uppercase italic text-center mb-3">Listar todos los cursos</label>
+                <form action="client.php" method="POST" class="md:w-70 shadow-md sm:rounded-md mt-4 md:mt-0">
+                    <div class="py-5 px-4 pb-5 bg-white text-gray-700 md:px-6">
+                        <label class="block font-bold text-gray-700 uppercase italic text-center mb-3">Listar todos los cursos</label>
+                        <div class="md:py-9">
                             <label class="block font-medium">Formato respuesta:</label>
                             <div class="grid grid-cols-2">
                                 <div class="flex items-center justify-center">
@@ -68,11 +66,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="px-4 py-2">
-                            <button type="submit"
-                                class="py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700">Ver
-                                todos</button>
-                        </div>
+                    </div>
+                    <div class="px-4 py-2">
+                        <button type="submit"
+                            class="py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700">Ver
+                            todos</button>
                     </div>
                 </form>
             </div>
