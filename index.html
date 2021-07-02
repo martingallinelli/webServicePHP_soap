@@ -20,8 +20,9 @@
         <div class="mt-5 max-w-xl mx-auto">
             <div class="md:grid md:grid-cols-2 gap-3 mt-5 md:mt-0">
                 <form action="client.php" method="POST" class="md:w-70 shadow-md sm:rounded-md">
-                    <div class="px-4 pt-5 pb-3 bg-white sm:px-6 sm:pb-5">
+                    <div class="px-4 pt-5 pb-2 bg-white sm:px-6 md:pb-3">
                         <label class="block font-bold text-gray-700 uppercase italic text-center mb-3">Listar curso por código</label>
+                        <input type="hidden" name="metodo" value="obtenerCurso">
                         <label for="id" class="block font-medium text-gray-700">Buscar curso: <small
                                 class="italic">(Ingrese un código > 0)</small></label>
                         <input type="number" name="id" id="id" min="1"
@@ -53,7 +54,8 @@
                 <form action="client.php" method="POST" class="md:w-70 shadow-md sm:rounded-md mt-4 md:mt-0">
                     <div class="py-5 px-4 pb-5 bg-white text-gray-700 md:px-6">
                         <label class="block font-bold text-gray-700 uppercase italic text-center mb-3">Listar todos los cursos</label>
-                        <div class="md:py-9">
+                        <input type="hidden" name="metodo" value="obtenerCursos">
+                        <div class="md:pt-16">
                             <label class="block font-medium">Formato respuesta:</label>
                             <div class="grid grid-cols-2">
                                 <div class="flex items-center justify-center">
@@ -69,8 +71,7 @@
                     </div>
                     <div class="px-4 py-2">
                         <button type="submit"
-                            class="py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700">Ver
-                            todos</button>
+                            class="py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700">Ver todos</button>
                     </div>
                 </form>
             </div>

@@ -15,18 +15,23 @@ try {
     // SoapClient(url_del_WSDL, array_opciones)
     $soap_client = new SoapClient(null, $options);  // null = no hay wsdl
 
-	// capturar el codigo del curso
-	$id = isset($_POST['id']) ? $_POST['id'] : '';
-	
-	if ($id == '') 
+	if ($_POST['metodo'] == 'obtenerCursos')
 	{
 		//! ejecutar metodo listar todos los cursos
 		// soapCall(nombreMetodo, nombreMetodo=>parametro)
-		$response = $soap_client->__soapCall('listarCursos', ['listarCursos' => '']);
-	} else {
+		$response = $soap_client->__soapCall('obtenerCursos', ['obtenerCursos' => '']);
+	} elseif ($_POST['metodo'] == 'obtenerCurso')
+	{
+		$id = $_POST['id'];
 		//! ejecutar metodo ver curso por id
 		// soapCall(nombreMetodo, nombreMetodo=>parametro)
-		$response = $soap_client->__soapCall('getCurso', ['getCurso' => $id]);
+		$response = $soap_client->__soapCall('obtenerCurso', ['obtenerCurso' => $id]);
+	} elseif ($_POST['metodo'] == 'actualizarCurso')
+	{
+
+	} elseif ($_POST['metodo'] == 'eliminarCurso')
+	{
+		
 	}
 
 	// analizar si hubo un error, sino analizar en que formato se muestra (xml - json), y mostrar

@@ -22,11 +22,11 @@ class Server
 
     //! listar todos los cursos    
     /**
-     * listarCursos
+     * obtenerCursos
      *
      * @return array
      */
-    public function listarCursos() 
+    public function obtenerCursos() 
     {
         //! conectar la bd
         $conn = Conection::conectar();
@@ -38,41 +38,48 @@ class Server
         if ($stmt->execute()) {
             // traer el curso en un array asociativo
             $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            // devolver cursos
+            return $cursos;
         } else {
             // error 500 (interno del servidor)
             return Answers::mensaje('500', self::$mensajes['500']);
         }
-
-        //! devolver cursos
-        return $cursos;
     }
 
     //! listar un curso por id    
     /**
-     * getCurso
+     * obtenerCurso
      *
      * @param  mixed $id
      * @return array
      */
-    public function getCurso($id) 
+    public function obtenerCurso($id) 
     {
-        //! conectar la bd
-        $conn = Conection::conectar();
-        //! consulta sql
-        $sql = "SELECT nombre FROM cursos WHERE id = :id";
-        //! guardar la consulta en memoria para ser analizada 
-        $stmt = $conn->prepare($sql);
-        //! bindear parametros
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        //! ejecutar consulta
-        if ($stmt->execute()) {
-            // traer el curso en un array asociativo
-            $curso = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            // devolver curso o 404 no encontrado
-            return $curso ? $curso : Answers::mensaje('404', self::$mensajes['404']);
+        //* si el id esta vacio
+        if($id == "")
+        {
+            // error 400 datos incompletos
+            return Answers::mensaje('400', self::$mensajes['400']);
+        //* si el id esta ok
         } else {
-            // error 500 (interno del servidor)
-            return Answers::mensaje('500', self::$mensajes['500']);
+            //! conectar la bd
+            $conn = Conection::conectar();
+            //! consulta sql
+            $sql = "SELECT nombre FROM cursos WHERE id = :id";
+            //! guardar la consulta en memoria para ser analizada 
+            $stmt = $conn->prepare($sql);
+            //! bindear parametros
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            //! ejecutar consulta
+            if ($stmt->execute()) {
+                // traer el curso en un array asociativo
+                $curso = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                // devolver curso o 404 no encontrado
+                return $curso ? $curso : Answers::mensaje('404', self::$mensajes['404']);
+            } else {
+                // error 500 (interno del servidor)
+                return Answers::mensaje('500', self::$mensajes['500']);
+            }
         }
     }
 }
