@@ -77,9 +77,27 @@
                     </div>
                 </form>
 
+                <!-- GUARDAR CURSO -->
+                <form action="client.php" method="POST" class="md:w-70 shadow-md sm:rounded-md">
+                    <div class="px-4 pt-5 pb-2 bg-white sm:px-6 md:pb-24">
+                        <label class="block font-bold text-gray-700 uppercase italic text-center mb-3">Guardar nuevo curso</label>
+                        <input type="hidden" name="metodo" value="nuevoCurso">
+                        <label for="nombre" class="block font-medium text-gray-700">Nombre: </label>
+                        <input type="text" name="nombre" id="nombre" min="1"
+                            class="mt-1 shadow-md border border-grey-700 rounded-md" required>
+                    </div>
+
+                    <div class="px-4 py-2">
+                        <button type="submit"
+                            class="py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700">Guardar</button>
+                        <button type="reset"
+                            class="py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-700">Limpiar</button>
+                    </div>
+                </form>
+
                 <!-- ACTUALIZAR CURSO -->
                 <form action="client.php" method="POST" class="md:w-70 shadow-md sm:rounded-md mt-4 md:mt-0">
-                    <div class="px-4 pt-5 pb-2 bg-white sm:px-6 md:pb-3">
+                    <div class="px-4 pt-5 pb-2 bg-white sm:px-6 md:pb-5">
                         <label class="block font-bold text-gray-700 uppercase italic text-center mb-3">Actualizar curso</label>
                         <input type="hidden" name="metodo" value="actualizarCurso">
                         <label for="id" class="block font-medium text-gray-700">Buscar curso: <small

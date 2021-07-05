@@ -27,10 +27,15 @@ try {
 			// soapCall(nombreMetodo, nombreMetodo=>parametro)
 			$response = $soap_client->__soapCall('obtenerCursos', ['obtenerCursos' => '']);
 			break;
-		case 'obtenerCursos':
+		case 'obtenerCurso':
 			//! ejecutar metodo ver curso por id
 			// soapCall(nombreMetodo, nombreMetodo=>parametro)
 			$response = $soap_client->__soapCall('obtenerCurso', ['obtenerCurso' => $_POST['id']]);
+			break;
+		case 'nuevoCurso':
+			//! ejecutar metodo ver curso por id
+			// soapCall(nombreMetodo, nombreMetodo=>parametro)
+			$response = $soap_client->__soapCall('nuevoCurso', ['nuevoCurso' => $_POST['nombre']]);
 			break;
 		case 'actualizarCurso':
 			// capturar datos recibidos

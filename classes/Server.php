@@ -103,6 +103,68 @@ class Server
         }
     }
 
+    //! capturar datos y crear curso    
+    /**
+     * capturarPost
+     *
+     * @param  mixed $array
+     * @return array
+     */
+    public static function nuevoCurso($nombre)
+    {
+        //* si no existe alguno de los campos en los datos
+        if($nombre == '')
+        {
+            // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+            Log::saveLog('a+', 'Ocurrio un error! HTTP Status Code: 400 | Method: POST nuevoCurso');
+            // error 400 datos incompletos
+             return Answers::mensaje('400', self::$mensajes['400']);
+        //* si existen los campos en los datos
+        } else {
+            //* guardar curso 
+            $resp = self::insertarCurso($nombre);
+            // si se guardo
+            if($resp)
+            {
+                // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+                Log::saveLog('a+', 'Se guardo el nuevo curso! HTTP Status Code: 201 | Method: POST nuevoCurso');
+                // devolver 201 elemento guardado
+                return Answers::mensaje('201', self::$mensajes['201']);
+            // si no se guardo
+            } else {
+                // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+                Log::saveLog('a+', 'Ocurrio un error! HTTP Status Code: 500 | Method: POST nuevoCurso');
+                // error 500 interno del servidor
+                return Answers::mensaje('500', self::$mensajes['500']);
+            }
+        }
+    } 
+
+    //! insertar curso    
+    /**
+     * insertarCurso
+     *
+     * @param  mixed $nombre
+     * @return bool
+     */
+    private static function insertarCurso($nombre)
+    {
+        //! conectar la bd
+        $conn = Conection::conectar();
+        //! consulta sql
+        $sql = "INSERT INTO cursos (nombre) VALUES (:nombre)";
+        //! guardar la consulta en memoria para ser analizada 
+        $stmt = $conn->prepare($sql);
+        //! bindear parametros
+        $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+        //! ejecutar consulta
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     //! capturar datos y actualizar curso    
     /**
      * actualizarCurso
