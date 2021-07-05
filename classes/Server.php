@@ -120,8 +120,6 @@ class Server
             // error 400 datos incompletos
             return Answers::mensaje('400', self::$mensajes['400']);
         } else {
-            // convertir de json a array
-            //$dato = json_decode($datos, true);
             // si el nombre esta vacio o no existe
             if (!isset($datos['nombre']) || empty($datos['nombre']))
             {
@@ -130,10 +128,8 @@ class Server
                 // error 400 datos incompletos
                 return Answers::mensaje('400', self::$mensajes['400']);
             } else {
-                // guardar valores recibidos
-                $nombre = $datos['nombre'];
                 //* actualizar curso 
-                $resp = self::modificarCurso($datos['id'], $nombre);
+                $resp = self::modificarCurso($datos['id'], $datos['nombre']);
                 // si se actualizo
                 if($resp)
                 {
@@ -174,8 +170,7 @@ class Server
         //! ejecutar consulta
         if ($stmt->execute()) {
             // numero de filas afectadas
-            $row = $stmt->rowCount();
-            return $row;
+            return $stmt->rowCount();
         } else {
             // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
             Log::saveLog('a+', 'Ocurrio un error! HTTP Status Code: 500 | Method: PUT actualizarCurso');
@@ -240,8 +235,7 @@ class Server
         //! ejecutar consulta
         if ($stmt->execute()) {
             // numero de filas afectadas
-            $row = $stmt->rowCount();
-            return $row;
+            return $stmt->rowCount();
         } else {
             // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
             Log::saveLog('a+', 'Ocurrio un error! HTTP Status Code: 500 | Method: DELETE eliminarCurso');

@@ -11,8 +11,3 @@
 [2021-07-05 19:31:59] Ocurrio un error! HTTP Status Code: 400 | Method: PUT actualizarCurso
 [2021-07-05 19:32:15] Se actualizo el curso 1! HTTP Status Code: 200 | Method: PUT actualizarCurso
 [2021-07-05 19:45:35] Ocurrio un error! HTTP Status Code: 404 | Method: DELETE eliminarCurso
-[2021-07-05 19:45:40] Se listaron todos los cursos correctamente! HTTP Status Code: 200 | Method: GET obtenerCursos
-[2021-07-05 19:46:04] Se actualizo el curso 1! HTTP Status Code: 200 | Method: PUT actualizarCurso
-[2021-07-05 19:46:08] Se listaron todos los cursos correctamente! HTTP Status Code: 200 | Method: GET obtenerCursos
-[2021-07-05 19:46:18] Se elimino el curso 14! HTTP Status Code: 200 | Method: DELETE eliminarCurso
-[2021-07-05 19:46:21] Se listaron todos los cursos correctamente! HTTP Status Code: 200 | Method: GET obtenerCursos
