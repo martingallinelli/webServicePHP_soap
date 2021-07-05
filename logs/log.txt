@@ -5,3 +5,8 @@
 [2021-07-05 18:34:40] Ocurrio un error! HTTP Status Code: 404 | Method: GET obtenerCurso
 [2021-07-05 18:34:51] Ocurrio un error! HTTP Status Code: 404 | Method: GET obtenerCurso
 [2021-07-05 18:34:58] Se listo el curso 3! HTTP Status Code: 200 | Method: GET obtenerCurso
+[2021-07-05 18:47:03] Se listaron todos los cursos correctamente! HTTP Status Code: 200 | Method: GET obtenerCursos
+[2021-07-05 18:47:19] Se listo el curso 1! HTTP Status Code: 200 | Method: GET obtenerCurso
+[2021-07-05 19:04:22] Se listo el curso 1! HTTP Status Code: 200 | Method: GET obtenerCurso
+[2021-07-05 19:31:59] Ocurrio un error! HTTP Status Code: 400 | Method: PUT actualizarCurso
+[2021-07-05 19:32:15] Se actualizo el curso 1! HTTP Status Code: 200 | Method: PUT actualizarCurso

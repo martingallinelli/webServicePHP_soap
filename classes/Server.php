@@ -102,4 +102,85 @@ class Server
             }
         }
     }
+
+    //! capturar datos y actualizar curso    
+    /**
+     * actualizarCurso
+     *
+     * @param  mixed $json
+     * @return array
+     */
+    public function actualizarCurso($datos)
+    {
+        //* si el id recibido esta vacio
+        if($datos['id'] == '')
+        {
+            // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+            Log::saveLog('a+', 'Ocurrio un error! HTTP Status Code: 400 | Method: PUT actualizarCurso');
+            // error 400 datos incompletos
+            return Answers::mensaje('400', self::$mensajes['400']);
+        } else {
+            // convertir de json a array
+            //$dato = json_decode($datos, true);
+            // si el nombre esta vacio o no existe
+            if (!isset($datos['nombre']) || empty($datos['nombre']))
+            {
+                // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+                Log::saveLog('a+', 'Ocurrio un error! HTTP Status Code: 400 | Method: PUT actualizarCurso');
+                // error 400 datos incompletos
+                return Answers::mensaje('400', self::$mensajes['400']);
+            } else {
+                // guardar valores recibidos
+                $nombre = $dato['nombre'];
+                //* actualizar curso 
+                $resp = self::modificarCurso($datos['id'], $nombre);
+                // si se actualizo
+                if($resp)
+                {
+                    // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+                    Log::saveLog('a+', 'Se actualizo el curso ' . $datos['id'] . '! HTTP Status Code: 200 | Method: PUT actualizarCurso');
+                    // devolver 200 curso actualizado
+                    return Answers::mensaje('200', 'Curso actualizado');
+                // si no se guardo
+                } else {
+                    // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+                    Log::saveLog('a+', 'Ocurrio un error! HTTP Status Code: 404 | Method: PUT actualizarCurso');
+                    // error 404 recurso no encontrado
+                    return Answers::mensaje('404', self::$mensajes['404']);
+                }
+            }
+        }
+    }
+
+    //! actualizar curso    
+    /**
+     * modificarCurso
+     *
+     * @param  mixed $id
+     * @param  mixed $nombre
+     * @return bool
+     */
+    private static function modificarCurso($id, $nombre)
+    {
+        //! conectar la bd
+        $conn = Conection::conectar();
+        //! consulta sql
+        $sql = "UPDATE cursos SET nombre = :nombre WHERE id = :id";
+        //! guardar la consulta en memoria para ser analizada 
+        $stmt = $conn->prepare($sql);
+        //! bindear parametros
+        $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        //! ejecutar consulta
+        if ($stmt->execute()) {
+            // numero de filas afectadas
+            $row = $stmt->rowCount();
+            return $row;
+        } else {
+            // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+            Log::saveLog('a+', 'Ocurrio un error! HTTP Status Code: 500 | Method: PUT actualizarCurso');
+            // error 500 interno del servidor
+            return Answers::mensaje('500', self::$mensajes['500']);
+        }
+    }
 }
