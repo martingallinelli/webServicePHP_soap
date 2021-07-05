@@ -4,6 +4,8 @@
 require_once './config/Conection.php';
 // respuestas
 require_once './classes/errors/Answers.php';
+// log
+require_once './classes/Log.php';
 
 class Server
 {
@@ -38,9 +40,13 @@ class Server
         if ($stmt->execute()) {
             // traer el curso en un array asociativo
             $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+            Log::saveLog('a+', 'Se listaron todos los cursos correctamente! HTTP Status Code: 200 | Method: GET obtenerCursos');
             // devolver cursos
             return $cursos;
         } else {
+            // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+            Log::saveLog('a+', 'Ocurrio un error! HTTP Status Code: 500 | Method: GET obtenerCursos');
             // error 500 (interno del servidor)
             return Answers::mensaje('500', self::$mensajes['500']);
         }
@@ -74,9 +80,23 @@ class Server
             if ($stmt->execute()) {
                 // traer el curso en un array asociativo
                 $curso = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                // devolver curso o 404 no encontrado
-                return $curso ? $curso : Answers::mensaje('404', self::$mensajes['404']);
+
+                // si encontro el curso
+                if ($curso)
+                {
+                    // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+                    Log::saveLog('a+', 'Se listo el curso ' . $id . '! HTTP Status Code: 200 | Method: GET obtenerCurso');
+                    return $curso;
+                // si no encontro el curso
+                } else {
+                    // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+                    Log::saveLog('a+', 'Ocurrio un error! HTTP Status Code: 404 | Method: GET obtenerCurso');
+                    // devolver 404 no encontrado
+                    return Answers::mensaje('404', self::$mensajes['404']);
+                }
             } else {
+                // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+                Log::saveLog('a+', 'Ocurrio un error! HTTP Status Code: 500 | Method: GET obtenerCursos');
                 // error 500 (interno del servidor)
                 return Answers::mensaje('500', self::$mensajes['500']);
             }
