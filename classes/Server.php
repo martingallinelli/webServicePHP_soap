@@ -131,7 +131,7 @@ class Server
                 return Answers::mensaje('400', self::$mensajes['400']);
             } else {
                 // guardar valores recibidos
-                $nombre = $dato['nombre'];
+                $nombre = $datos['nombre'];
                 //* actualizar curso 
                 $resp = self::modificarCurso($datos['id'], $nombre);
                 // si se actualizo
@@ -179,6 +179,72 @@ class Server
         } else {
             // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
             Log::saveLog('a+', 'Ocurrio un error! HTTP Status Code: 500 | Method: PUT actualizarCurso');
+            // error 500 interno del servidor
+            return Answers::mensaje('500', self::$mensajes['500']);
+        }
+    }
+
+    //! capturar datos y eliminar post    
+    /**
+     * eliminarCurso
+     *
+     * @param  mixed $id
+     * @return array
+     */
+    public function eliminarCurso($id)
+    {
+        //* si el id recibido esta vacio
+        if($id == '')
+        {
+            // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+            Log::saveLog('a+', 'Ocurrio un error! HTTP Status Code: 400 | Method: DELETE eliminarCurso');
+            // error 400 datos incompletos
+            return Answers::mensaje('400', self::$mensajes['400']);
+        } else {
+            //* eliminar curso 
+            $resp = self::borrarCurso($id);
+            // si se elimino
+            if($resp)
+            {
+                // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+                Log::saveLog('a+', 'Se elimino el curso ' . $id . '! HTTP Status Code: 200 | Method: DELETE eliminarCurso');
+                // devolver 200 curso eliminado
+                return Answers::mensaje('200', 'Curso eliminado!');
+            // si no se guardo
+            } else {
+                // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+                Log::saveLog('a+', 'Ocurrio un error! HTTP Status Code: 404 | Method: DELETE eliminarCurso');
+                // error 404 recurso no encontrado
+                return Answers::mensaje('404', self::$mensajes['404']);
+            }
+        }
+    }  
+
+    //! eliminar post    
+    /**
+     * borrarCurso
+     *
+     * @param  mixed $id
+     * @return bool
+     */
+    private static function borrarCurso($id)
+    {
+        //! conectar la bd
+        $conn = Conection::conectar();
+        //! consulta sql
+        $sql = "DELETE FROM cursos WHERE id = :id";
+        //! guardar la consulta en memoria para ser analizada 
+        $stmt = $conn->prepare($sql);
+        //! bindear parametros
+        $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+        //! ejecutar consulta
+        if ($stmt->execute()) {
+            // numero de filas afectadas
+            $row = $stmt->rowCount();
+            return $row;
+        } else {
+            // guardar log (a+, seguir escribiendo sin sobreescribir lo existente)
+            Log::saveLog('a+', 'Ocurrio un error! HTTP Status Code: 500 | Method: DELETE eliminarCurso');
             // error 500 interno del servidor
             return Answers::mensaje('500', self::$mensajes['500']);
         }

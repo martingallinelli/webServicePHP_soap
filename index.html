@@ -89,14 +89,34 @@
                     </div>
 
                     <div class="px-4 pb-5 bg-white sm:px-6 text-gray-700">
-                        <label class="block font-medium">Modificar dato:</label>
-                        <label for="nombre" class="block text-gray-700">Nombre:</label>
+                        <label class="block font-medium">Modificar nombre:</label>
                         <input type="text" name="nombre" id="nombre"
                             class="mt-1 shadow-md border border-grey-700 rounded-md" required>
                     </div>
                     <div class="px-4 py-2">
                         <button type="submit"
                             class="py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700">Modificar</button>
+                            <button type="reset"
+                            class="py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-700">Limpiar</button>
+                    </div>
+                </form>
+
+                <!-- ELIMINAR CURSO -->
+                <form action="client.php" method="POST" class="md:w-70 shadow-md sm:rounded-md  mt-4 md:mt-0">
+                    <div class="px-4 py-5 bg-white sm:px-6 md:pb-20">
+                        <label class="block font-bold text-gray-700 uppercase italic text-center mb-3">Eliminar curso</label>
+                        <input type="hidden" name="metodo" value="eliminarCurso">
+                        <label for="id" class="block font-medium text-gray-700">Buscar curso: <small
+                                class="italic">(Ingrese un código > 0)</small></label>
+                        <input type="number" name="id" id="id" min="1"
+                            class="mt-1 shadow-md border border-grey-700 rounded-md" required>
+                    </div>
+
+                    <div class="px-4 py-2">
+                        <button type="submit"
+                            class="py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700">Eliminar</button>
+                        <button type="reset"
+                            class="py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-700">Limpiar</button>
                     </div>
                 </form>
             </div>
